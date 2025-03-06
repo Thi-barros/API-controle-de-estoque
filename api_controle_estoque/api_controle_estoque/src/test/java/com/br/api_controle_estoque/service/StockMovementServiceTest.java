@@ -121,6 +121,7 @@ class StockMovementServiceTest {
 
         //Act
 
+      asdad
     }*/
 
     @Test

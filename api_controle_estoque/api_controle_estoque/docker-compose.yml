@@ -1,0 +1,32 @@
+services:
+  # Serviço da aplicação Spring Boot
+  api_controle_estoque:
+    image: api_controle_estoque:latest
+    build:
+      context: .
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_APPLICATION_NAME=api_controle_estoque
+      - DB_HOST=db
+      - DB_PORT=3306       # O MySQL continuará usando a porta 3306 dentro do container
+      - DB_USERNAME=root
+      - DB_PASSWORD=banco123@
+      - API_SECRET_KEY=my-secret-key
+      - SERVER_PORT=8081
+    depends_on:
+      - db
+
+  # Serviço do banco de dados MySQL
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=banco123@
+      - MYSQL_DATABASE=controle_estoque
+    ports:
+      - "3307:3306"  # Alterando a porta externa para 3307
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

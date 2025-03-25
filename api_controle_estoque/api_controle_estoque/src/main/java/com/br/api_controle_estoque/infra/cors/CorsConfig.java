@@ -13,8 +13,17 @@ import java.util.List;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // Permite CORS para todas as rotas
+        registry.addMapping("/**")
+                .allowedOrigins("http://127.0.0.1:5500")  // URL do seu frontend (ajustar conforme necessário)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Permite os métodos desejados
+                .allowedHeaders("Content-Type", "Authorization")  // Permite cabeçalhos específicos
+                .allowCredentials(true);  // Permite o envio de credenciais (como cookies, tokens, etc.)
+    }
 
-
+    /*
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
@@ -27,5 +36,5 @@ public class CorsConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/**", corsConfig);
 
         return new CorsFilter(source);
-    }
+    }*/
 }

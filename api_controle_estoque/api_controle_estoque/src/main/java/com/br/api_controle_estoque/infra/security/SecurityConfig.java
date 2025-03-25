@@ -27,8 +27,6 @@ public class SecurityConfig {
 
     @Autowired
     SecurityFilter securityFilter;
-    @Autowired
-    CorsFilter corsFilter;
 
 
     @Bean

@@ -27,31 +27,20 @@ public class SecurityConfig {
 
     @Autowired
     SecurityFilter securityFilter;
-
+    @Autowired
+    CorsFilter corsFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(request -> {
-                    CorsConfiguration config = new CorsConfiguration();
-                    config.applyPermitDefaultValues();
-                    config.setAllowedOrigins(List.of("*"));
-                    config.addAllowedMethod("GET");
-                    config.addAllowedMethod("POST");
-                    config.addAllowedMethod("PUT");
-                    config.addAllowedMethod("DELETE");
-                    config.addAllowedMethod("OPTIONS");
-                    config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-                    config.setAllowCredentials(true);
-                    return config;
-                }))
+                .cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers("/v3/api-docs/",
-                                "/swagger-ui/",
+                        .requestMatchers("/v3/api-docs/**",
+                                "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -69,4 +58,3 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }
-

@@ -15,26 +15,24 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // Permite CORS para todas as rotas
-        registry.addMapping("/**")
-                .allowedOrigins("http://127.0.0.1:5500")  // URL do seu frontend (ajustar conforme necessário)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Permite os métodos desejados
-                .allowedHeaders("Content-Type", "Authorization")  // Permite cabeçalhos específicos
-                .allowCredentials(true);  // Permite o envio de credenciais (como cookies, tokens, etc.)
+        registry.addMapping("/")
+                .allowedOrigins("*")  // Permite requisições de qualquer domínio
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
+                .allowedHeaders("*") // Permite todos os headers
+                .allowCredentials(false); // Permite envio de credenciais (cookies, autenticação)
     }
 
-    /*
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
-        corsConfig.setAllowedOrigins(List.of("http://127.0.0.1:5500"));
-        corsConfig.setAllowedHeaders(List.of("*"));
-        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfig.addAllowedOrigin("*");
+        corsConfig.addAllowedHeader("*");
+        corsConfig.addAllowedMethod("*"); // Permite credenciais
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
 
         return new CorsFilter(source);
-    }*/
+    }
 }

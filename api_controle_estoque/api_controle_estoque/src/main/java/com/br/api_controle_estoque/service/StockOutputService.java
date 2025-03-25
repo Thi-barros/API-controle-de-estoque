@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,7 @@ public class StockOutputService {
         StockOutput stockOutput = new StockOutput();
         stockOutput.setProduct(product);
         stockOutput.setQuantity(dto.quantity());
-        stockOutput.setOutputDate(LocalDateTime.now());
+        stockOutput.setOutputDate(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
         stockOutput.setObservation(dto.observation());
 
         updateProductStock(product, stockOutput);
@@ -94,6 +95,7 @@ public class StockOutputService {
 
         stockOutput.setQuantity(dto.quantity());
         stockOutput.setObservation(dto.observation());
+        stockOutput.setOutputDate(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
 
         updateProductStock(product, stockOutput);
         productRepository.save(product);

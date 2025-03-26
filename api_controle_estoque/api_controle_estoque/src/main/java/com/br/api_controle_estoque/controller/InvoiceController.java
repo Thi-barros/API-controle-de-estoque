@@ -31,7 +31,7 @@ public class InvoiceController {
     }
 
     @Operation(summary = "Buscar todas as notas fiscais criado", description = "Retorna uma lista com todas notas fiscais cadastradas.")
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<InvoiceResponseDto>> getAllInvoices() {
         return ResponseEntity.ok(invoiceService.getAllInvoices());
     }

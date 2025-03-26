@@ -39,7 +39,7 @@ public class InvoiceItemController {
     }
 
     @Operation(summary = "Buscar todos os itens de nota fiscal criado", description = "Retorna uma lista com todos os itens de nota fiscal cadastrados.")
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<InvoiceItemResponseDto>> getAllInvoiceItems() {
         return ResponseEntity.ok(invoiceItemService.getAllInvoiceItems());
     }

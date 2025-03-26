@@ -33,7 +33,7 @@ public class AdressController {
     }
 
     @Operation(summary = "Buscar todos os endereços", description = "Retorna uma lista com todos os endereços cadastrados.")
-    @GetMapping
+    @GetMapping("/list")
     public List<AdressResponseDto> listAdress() {
         return adressService.listAdress();
     }
